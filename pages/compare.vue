@@ -1,1 +1,0 @@
-<template>Compare</template>
