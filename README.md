@@ -5,13 +5,11 @@ I often visit [eloshapes.com](https://www.eloshapes.com/), which is a gem of a w
 **Made with:**
 
 - 💚 [Nuxt](https://github.com/sveltejs/kit) - SSG, file-based routing, etc.
-  
-- ⚡️ [Vite](https://github.com/vitejs/vite) - Instant Hot Module Replacement (HMR) for lightning-fast development.
 
-- 🌊 [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) - The instant on-demand atomic CSS engine.
+- 🌊 [Nuxt UI](https://ui.nuxt.com/) - Styles with [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss), a11y with [Reka UI](https://reka-ui.com/) and type-safe with [TypeScript](https://github.com/microsoft/TypeScript)
 
-- 🦾 [TypeScript](https://github.com/microsoft/TypeScript) - Type-safety for JavaScript.
+- 🥟 [Bun](https://bun.com/) · For near-instant package installation and update (yes, it's a gyoza emoji)
 
 - 💲 [Supabase](https://supabase.com/) - The Open Source Firebase Alternative.
 
-- 🏎 [Cloudflare Pages](https://pages.cloudflare.com/) - Zero-config cloud functions and deployments.
+- 🏎 [Cloudflare Pages](https://pages.cloudflare.com/) · Easy hosting and deployments.
