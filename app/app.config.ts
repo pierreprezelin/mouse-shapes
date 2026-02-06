@@ -1,8 +1,9 @@
 export default defineAppConfig({
+  title: "MouseShapes",
   ui: {
     colors: {
-      primary: 'green',
-      neutral: 'slate'
-    }
-  }
-})
+      primary: "sky",
+      neutral: "slate",
+    },
+  },
+});
