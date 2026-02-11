@@ -1,3 +1,13 @@
+export const ALIGNMENT = {
+  topLeft: 'Top Left',
+  top: 'Top Center',
+  topRight: 'Top Right',
+  center: 'Center',
+  bottomLeft: 'Bottom Left',
+  bottom: 'Bottom Center',
+  bottomRight: 'Bottom Right'
+};
+
 export const CONNECTIVITY = {
   wired: "Wired",
   wireless: "Wireless",
