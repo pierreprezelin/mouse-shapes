@@ -36,9 +36,11 @@ export type Database = {
           sensor: Database["public"]["Enums"]["sensor"] | null
           sensor_position: Database["public"]["Enums"]["sensor_position"] | null
           sensor_technology:
-          | Database["public"]["Enums"]["sensor_technology"]
-          | null
+            | Database["public"]["Enums"]["sensor_technology"]
+            | null
           shape: Database["public"]["Enums"]["shape"]
+          shape_path_side: string | null
+          shape_path_top: string | null
           side_buttons: number
           side_curvature: Database["public"]["Enums"]["side_curvature"] | null
           switches: Database["public"]["Enums"]["switches"] | null
@@ -56,6 +58,7 @@ export type Database = {
           front_flare?: Database["public"]["Enums"]["front_flare"] | null
           hand_compatibility?: Database["public"]["Enums"]["hand_compatibility"]
           height?: number
+          hotswap_switches?: boolean | null
           hump_location?: Database["public"]["Enums"]["hump_location"] | null
           id?: number
           length?: number
@@ -72,8 +75,11 @@ export type Database = {
             | Database["public"]["Enums"]["sensor_technology"]
             | null
           shape: Database["public"]["Enums"]["shape"]
+          shape_path_side?: string | null
+          shape_path_top?: string | null
           side_buttons?: number
           side_curvature?: Database["public"]["Enums"]["side_curvature"] | null
+          switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null
           weight?: number
@@ -88,6 +94,7 @@ export type Database = {
           front_flare?: Database["public"]["Enums"]["front_flare"] | null
           hand_compatibility?: Database["public"]["Enums"]["hand_compatibility"]
           height?: number
+          hotswap_switches?: boolean | null
           hump_location?: Database["public"]["Enums"]["hump_location"] | null
           id?: number
           length?: number
@@ -104,8 +111,11 @@ export type Database = {
             | Database["public"]["Enums"]["sensor_technology"]
             | null
           shape?: Database["public"]["Enums"]["shape"]
+          shape_path_side?: string | null
+          shape_path_top?: string | null
           side_buttons?: number
           side_curvature?: Database["public"]["Enums"]["side_curvature"] | null
+          switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null
           weight?: number
@@ -174,10 +184,7 @@ export type Database = {
         | "inward_minimal"
         | "inward_moderate"
         | "inward_aggressive"
-      switches:
-        | "mechanical"
-        | "optical"
-        | "inductive"
+      switches: "mechanical" | "optical" | "inductive"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -364,6 +371,7 @@ export const Constants = {
         "inward_moderate",
         "inward_aggressive",
       ],
+      switches: ["mechanical", "optical", "inductive"],
     },
   },
 } as const
