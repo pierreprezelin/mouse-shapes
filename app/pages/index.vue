@@ -28,6 +28,14 @@ const { data: models, pending } = await useFetch('/api/models', {
 })
 const selectedModels = computed(() => models.value || [])
 
+onMounted(() => {
+  if (!route.query.models) {
+    router.replace({
+      query: { ...route.query, models: DEFAULT_MODELS.join(',') }
+    })
+  }
+})
+
 function handleModelSelection(item: any) {
   if (!item) return
   const newSlug = item.slug || item.value
@@ -62,32 +70,23 @@ function clearAll() {
   router.push({ query: { ...route.query, models: '' } })
   searchTerm.value = ""
 }
-
-onMounted(() => {
-  if (!route.query.models) {
-    router.replace({
-      query: { ...route.query, models: DEFAULT_MODELS.join(',') }
-    })
-  }
-})
 </script>
 
 <template>
-  <UContainer class="flex-1 flex flex-col">
+  <UContainer class="flex-1 flex flex-col" :class="{'justify-center items-center': selectedModels.length === 0}">
     <template v-if="selectedModels.length === 0">
       <h1 class="text-4xl font-bold text-center pb-4">MouseShapes</h1>
       <p class="text-lg text-muted font-normal text-center pb-10">
-        A reverse-engineering of eloshapes.com for fun and to
-        get up to date with Nuxt v4.
+        A reverse-engineering of eloshapes.com for fun and to get up to date with Nuxt v4.
       </p>
     </template>
 
     <div class="flex flex-col">
       <div class="flex flex-nowrap justify-center items-center gap-3">
-        <UInputMenu v-model:search-term="searchTerm" :items="catalog || []" :loading="pending" placeholder="Add mouse to comparison..."
-          variant="soft" size="xl" open-on-click open-on-focus clear clear-icon="i-lucide-circle-x"
-          :selected-icon="null" :disabled="selectedModels.length >= 5" class="w-100" :class="{ 'py-6': selectedModels.length > 0 }"
-          @update:model-value="handleModelSelection" />
+        <UInputMenu v-model:search-term="searchTerm" :items="catalog || []" :loading="pending"
+          placeholder="Add mouse to comparison..." variant="soft" size="xl" open-on-click open-on-focus clear
+          clear-icon="i-lucide-circle-x" :selected-icon="null" :disabled="selectedModels.length >= 5" class="w-100"
+          :class="{ 'py-6': selectedModels.length > 0 }" @update:model-value="handleModelSelection" />
 
         <UTooltip text="Copy to clipboard">
           <UButton :color="copied ? 'success' : 'neutral'" variant="link"
@@ -96,9 +95,8 @@ onMounted(() => {
         </UTooltip>
 
         <UTooltip v-if="selectedModels.length > 1" text="Remove all models from comparison">
-          <UButton variant="link"
-            icon="i-lucide-trash"
-            aria-label="Remove all models from comparison" @click="clearAll()" />
+          <UButton variant="link" icon="i-lucide-trash" aria-label="Remove all models from comparison"
+            @click="clearAll()" />
         </UTooltip>
       </div>
     </div>
