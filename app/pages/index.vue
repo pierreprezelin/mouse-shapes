@@ -10,8 +10,12 @@ const searchTerm = ref("")
 
 const DEFAULT_MODELS = ['zowie-ec3-dw', 'lamzu-atlantis-mini', 'logitech-g-pro-x-superlight-2']
 
+const hasModelsParam = computed(() => 'models' in route.query)
 const urlSlugs = computed(() => {
   const s = route.query.models as string
+  if (!hasModelsParam.value) {
+    return DEFAULT_MODELS
+  }
   return s ? s.split(',').filter(Boolean) : []
 })
 
@@ -49,13 +53,14 @@ function handleModelRemoval(id: number) {
   router.push({
     query: {
       ...route.query,
-      models: updatedSlugs.length ? updatedSlugs.join(',') : undefined
+      models: updatedSlugs.length ? updatedSlugs.join(',') : ''
     }
   })
 }
 
 function clearAll() {
-  router.push({ query: { ...route.query, models: undefined } })
+  router.push({ query: { ...route.query, models: '' } })
+  searchTerm.value = ""
 }
 
 onMounted(() => {
