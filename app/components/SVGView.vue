@@ -45,15 +45,17 @@ function getTransformOrigin() {
                 {{ model.length }} x {{ model.width }} x {{ model.height }} mm · {{ model.weight }}g
               </span>
             </div>
-            <UButton color="neutral" variant="ghost" class="py-2 px-3 text-muted" @click="handleModelRemoval(model.id)">
-              x
-            </UButton>
+            <UButton color="neutral" icon="i-lucide-x" variant="ghost" class="py-3.5 px-3 text-muted" @click="handleModelRemoval(model.id)" />
           </li>
         </ul>
         <div class="sliders w-full">
-          <span class="flex mb-4">Thickness</span>
+          <span class="flex item-baseline mb-4">
+            Thickness <span class="text-muted text-sm ps-2">{{thickness * 25}}%</span>
+          </span>
           <USlider v-model="thickness" :default-value="4" :min="0" :max="8" tooltip />
-          <span class="flex mt-6 mb-4">Size</span>
+          <span class="flex item-baseline mt-6 mb-4">
+            Size <span class="text-muted text-sm ps-2">{{scale}}%</span>
+          </span>
           <USlider v-model="scale" :default-value="100" :min="0" :max="300" :step="10" tooltip />
           <span class="flex mt-6 mb-4">Alignment</span>
           <USelect v-model="alignment"
@@ -66,7 +68,7 @@ function getTransformOrigin() {
             <svg viewBox="0 0 612 1180" class="absolute inset-0 w-full h-full">
               <path :d="model.shape_path_top" fill="transparent" stroke="#3b82f6" :stroke-width="thickness"
                 vector-effect="non-scaling-stroke" :style="{
-                  // Scale = (Current Mouse Length / Reference Length)
+                  // Scale = (Current Mouse Length / Reference Length in mm)
                   transform: `scale(${model.length / 130})`,
                   transformOrigin: getTransformOrigin(),
                   transformBox: 'fill-box'
@@ -80,7 +82,7 @@ function getTransformOrigin() {
               <svg viewBox="0 0 1180 388">
                 <path :d="model.shape_path_side" fill="transparent" stroke="#3b82f6" :stroke-width="thickness"
                   vector-effect="non-scaling-stroke" :style="{
-                    // Scale = (Current Mouse Length / Reference Length)
+                    // Scale = (Current Mouse Length / Reference Length in mm)
                     transform: `scale(${model.length / 130})`,
                     transformOrigin: getTransformOrigin(),
                     transformBox: 'fill-box'

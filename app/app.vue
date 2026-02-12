@@ -51,3 +51,15 @@ useSeoMeta({
     </UFooter>
   </UApp>
 </template>
+
+<style lang="scss">
+html,
+body {
+  overflow-x: hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+}
+</style>

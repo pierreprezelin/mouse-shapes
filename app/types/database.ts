@@ -43,6 +43,7 @@ export type Database = {
           shape_path_top: string | null
           side_buttons: number
           side_curvature: Database["public"]["Enums"]["side_curvature"] | null
+          slug: string
           switches: Database["public"]["Enums"]["switches"] | null
           thumb_rest: boolean
           tracking_speed: number | null
@@ -79,6 +80,7 @@ export type Database = {
           shape_path_top?: string | null
           side_buttons?: number
           side_curvature?: Database["public"]["Enums"]["side_curvature"] | null
+          slug: string
           switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null
@@ -115,6 +117,7 @@ export type Database = {
           shape_path_top?: string | null
           side_buttons?: number
           side_curvature?: Database["public"]["Enums"]["side_curvature"] | null
+          slug: string
           switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null

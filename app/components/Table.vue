@@ -55,8 +55,8 @@ const specs: SpecItem[] = [
           <tr>
             <td class="w-52 p-4 font-semibold">Model</td>
             <td v-for="(model, index) in models" :key="model.id" class="w-52 p-4 text-center font-semibold" :class="{'bg-elevated': index === 0}">
-              <UButton color="neutral" variant="ghost" @click="handleModelRemoval(model.id)">x</UButton>
-              <span class="block text-muted text-sm">{{ model.brand }}</span>
+              <UButton color="neutral" icon="i-lucide-x" variant="ghost" @click="handleModelRemoval(model.id)" />
+              <span class="block text-muted text-sm mt-2.5">{{ model.brand }}</span>
               {{ model.name }}
             </td>
           </tr>
