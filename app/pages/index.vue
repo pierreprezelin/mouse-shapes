@@ -1,70 +1,70 @@
 <script setup lang="ts">
 import { useClipboard } from '@vueuse/core'
-import type { Model } from '~/types/database'
 
 const route = useRoute()
 const router = useRouter()
-const client = useSupabaseClient()
+const { copy, copied } = useClipboard()
+
+const shareUrl = computed(() => typeof window !== 'undefined' ? window.location.href : '')
+const searchTerm = ref("")
+
+const DEFAULT_MODELS = ['zowie-ec3-dw', 'lamzu-atlantis-mini', 'logitech-g-pro-x-superlight-2']
 
 const urlSlugs = computed(() => {
-  const slugs = route.query.compare as string
-  return slugs ? slugs.split(',').map(Number) : [1, 2, 3]
+  const s = route.query.models as string
+  return s ? s.split(',').filter(Boolean) : []
 })
-const { copy, copied } = useClipboard()
-const shareUrl = computed(() => window.location.href)
-const searchTerm = ref("")
-const selectedModels = ref<Model[]>([])
 
-const { data: catalog } = await useAsyncData(
-  'catalog',
-  async () => {
-    const { data, error } = await client
-      .from('models')
-      .select("id, brand, name")
-      .order('brand', { ascending: true })
+const { data: catalog } = await useFetch('/api/models/catalog')
 
-    if (error) throw error
-    return data?.map(m => ({ label: `${m.brand} ${m.name}`, value: String(m.id), id: m.id }))
-  },
-)
+const { data: models, pending } = await useFetch('/api/models', {
+  query: { models: computed(() => urlSlugs.value.join(',')) },
+  watch: [urlSlugs],
+  immediate: true
+})
+const selectedModels = computed(() => models.value || [])
 
-const { data: initialTableData } = await useAsyncData(
-  'initial-table-data',
-  async () => {
-    const { data } = await client
-      .from('models')
-      .select('*')
-      .in('id', urlSlugs.value)
-    return data
-  },
-  { watch: [urlSlugs] }
-)
+function handleModelSelection(item: any) {
+  if (!item) return
+  const newSlug = item.slug || item.value
 
-if (initialTableData.value) {
-  selectedModels.value = initialTableData.value
-}
-
-const handleModelSelection = async (item: any) => {
-  if (!item || selectedModels.value.some(m => m.id === item.id)) return
-  const { data } = await client.from('models').select('*').eq('id', item.id).single()
-  if (data) {
-    selectedModels.value.push(data)
+  if (urlSlugs.value.includes(newSlug)) {
     searchTerm.value = ""
+    return
   }
+  const updatedSlugs = [...urlSlugs.value, newSlug]
+
+  router.push({
+    query: { ...route.query, models: updatedSlugs.join(',') }
+  })
+  searchTerm.value = ""
 }
 
-const handleModelRemoval = (id: number) => {
-  selectedModels.value = selectedModels.value.filter(m => m.id !== id)
+function handleModelRemoval(id: number) {
+  const model = selectedModels.value.find(m => m.id === id)
+  if (!model) return
+
+  const updatedSlugs = urlSlugs.value.filter(s => s !== model.slug)
+
+  router.push({
+    query: {
+      ...route.query,
+      models: updatedSlugs.length ? updatedSlugs.join(',') : undefined
+    }
+  })
 }
 
-watch(selectedModels, (newModels) => {
-  const slugs = newModels.map(m => m.slug).join(',')
-  if (route.query.compare !== slugs) {
+function clearAll() {
+  router.push({ query: { ...route.query, models: undefined } })
+}
+
+onMounted(() => {
+  if (!route.query.models) {
     router.replace({
-      query: { ...route.query, compare: slugs || undefined }
+      query: { ...route.query, models: DEFAULT_MODELS.join(',') }
     })
   }
-}, { deep: true })
+})
 </script>
 
 <template>
@@ -76,24 +76,28 @@ watch(selectedModels, (newModels) => {
         get up to date with Nuxt v4.
       </p>
     </template>
+
     <div class="flex flex-col">
       <div class="flex flex-nowrap justify-center items-center gap-3">
-        <UInputMenu v-model:search-term="searchTerm" :items="catalog || []" placeholder="Add mouse to comparison..."
+        <UInputMenu v-model:search-term="searchTerm" :items="catalog || []" :loading="pending" placeholder="Add mouse to comparison..."
           variant="soft" size="xl" open-on-click open-on-focus clear clear-icon="i-lucide-circle-x"
           :selected-icon="null" :disabled="selectedModels.length >= 5" class="w-100" :class="{ 'py-6': selectedModels.length > 0 }"
           @update:model-value="handleModelSelection" />
+
         <UTooltip text="Copy to clipboard">
           <UButton :color="copied ? 'success' : 'neutral'" variant="link"
             :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
             :aria-label="copied ? 'Copied!' : 'Copy to clipboard'" @click="copy(shareUrl)" />
         </UTooltip>
+
         <UTooltip v-if="selectedModels.length > 1" text="Remove all models from comparison">
           <UButton variant="link"
             icon="i-lucide-trash"
-            aria-label="Remove all models from comparison" @click="selectedModels = []" />
+            aria-label="Remove all models from comparison" @click="clearAll()" />
         </UTooltip>
       </div>
     </div>
+
     <template v-if="selectedModels.length > 0">
       <SVGView :models="selectedModels" @remove-model="handleModelRemoval" />
       <Table :models="selectedModels" @remove-model="handleModelRemoval" />
