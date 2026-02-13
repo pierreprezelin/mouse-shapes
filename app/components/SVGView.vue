@@ -63,7 +63,7 @@ function getTransformOrigin() {
             :items="Object.entries(ALIGNMENT).map(([key, value]) => ({ label: value, value: key }))" class="w-32" />
         </div>
       </div>
-      <div class="relative z-1 flex-1 flex flex-nowrap gap-6" :style="{ transform: `scale(${scale / 100})` }">
+      <div class="relative z-1 flex-1 flex flex-nowrap gap-6 pointer-events-none" :style="{ transform: `scale(${scale / 100})` }">
         <div class="relative w-full max-w-[36%] h-full aspect-612/1180">
           <template v-for="model in models" :key="`top-${model.id}`">
             <svg viewBox="0 0 612 1180" class="absolute inset-0 w-full h-full">
