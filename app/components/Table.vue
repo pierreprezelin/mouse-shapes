@@ -99,7 +99,7 @@ const specs: SpecItem[] = [
             <td
               v-for="(model, index) in models"
               :key="model.id"
-              class="w-56 p-4 text-center text-sm"
+              class="bg-default w-56 p-4 text-center text-sm"
               :class="{ 'bg-elevated': index === 0 }"
             >
               <template v-if="spec.isBoolean">
