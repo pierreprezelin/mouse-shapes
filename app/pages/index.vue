@@ -86,25 +86,21 @@ function clearAll() {
         A reverse-engineering of eloshapes.com for fun and to get up to date with Nuxt v4.
       </p>
     </template>
-
     <div class="sticky z-20 top-0 flex flex-nowrap justify-center items-center gap-3">
       <UInputMenu v-model:search-term="searchTerm" :items="catalog || []" :loading="pending"
         placeholder="Add mouse to comparison..." variant="soft" size="xl" open-on-click open-on-focus clear
         clear-icon="i-lucide-circle-x" :selected-icon="null" :disabled="selectedModels.length >= 5" class="w-100"
-        :class="{ 'py-6': selectedModels.length > 0 }" @update:model-value="handleModelSelection" />
-
-      <UTooltip text="Copy to clipboard">
-        <UButton class="text-muted hover:text-white cursor-pointer" variant="link"
+        :class="{ 'me-2 py-6': selectedModels.length > 0 }" @update:model-value="handleModelSelection" />
+      <UTooltip v-if="!!route.query.models" text="Copy to clipboard">
+        <UButton class="text-muted hover:text-default cursor-pointer" variant="link"
           :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
           :aria-label="copied ? 'Copied!' : 'Copy to clipboard'" @click="handleCopyToClipboard()" />
       </UTooltip>
-
       <UTooltip v-if="selectedModels.length > 1" text="Remove all models from comparison">
         <UButton variant="link" icon="i-lucide-trash" aria-label="Remove all models from comparison"
-          class="text-muted hover:text-white cursor-pointer" @click="clearAll()" />
+          class="text-muted hover:text-default cursor-pointer" @click="clearAll()" />
       </UTooltip>
     </div>
-
     <template v-if="selectedModels.length > 0">
       <SVGView :models="selectedModels" @remove-model="handleModelRemoval" />
       <Table :models="selectedModels" @remove-model="handleModelRemoval" />
