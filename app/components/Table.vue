@@ -49,23 +49,28 @@ const specs: SpecItem[] = [
 
 <template>
   <section>
-    <div class="pb-6 overflow-x-auto w-auto">
-      <table class="text-sm text-left border border-neutral-200 dark:border-neutral-800 rounded-lg">
-        <tbody class="divide-y divide-neutral-200 dark:divide-neutral-800">
-          <tr>
-            <td class="w-52 p-4 font-semibold">Model</td>
-            <td v-for="(model, index) in models" :key="model.id" class="w-52 p-4 text-center font-semibold" :class="{'bg-elevated': index === 0}">
-              <UButton color="neutral" icon="i-lucide-x" variant="ghost" @click="handleModelRemoval(model.id)" />
+    <div class="relative overflow-x-auto overflow-y-auto w-max max-h-[calc(100vh-var(--ui-header-height)-88px)] mx-auto border border-zinc-200 dark:border-zinc-700 rounded-lg">
+      <table class="w-max text-sm text-left">
+        <thead class="relative z-20">
+          <tr class="border-b border-zinc-200 dark:border-zinc-700">
+            <th class="sticky z-20 top-0 w-52 min-w-56 bg-default"></th>
+            <th v-for="(model, index) in models" :key="model.id"
+              class="sticky z-20 top-0 w-52 min-w-56 p-4 text-center font-semibold bg-default"
+              :class="{ 'bg-elevated': index === 0 }">
+              <UButton variant="ghost" icon="i-lucide-x" class="text-muted hover:text-white cursor-pointer" @click="handleModelRemoval(model.id)" />
               <span class="block text-muted text-sm mt-2.5">{{ model.brand }}</span>
               {{ model.name }}
-            </td>
+            </th>
           </tr>
+        </thead>
+        <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
           <tr v-for="spec in specs" :key="spec.label">
-            <td class="w-52 p-4 font-semibold text-sm">
+            <td class="w-56 p-4 font-semibold text-sm bg-default">
               {{ spec.label }}
               <UBadge v-if="spec.unit" color="neutral" variant="soft" class="ms-1">{{ spec.unit }}</UBadge>
             </td>
-            <td v-for="(model, index) in models" :key="model.id" class="w-52 p-4 text-center text-sm" :class="{'bg-elevated': index === 0}">
+            <td v-for="(model, index) in models" :key="model.id" class="w-56 p-4 text-center text-sm"
+              :class="{ 'bg-elevated': index === 0 }">
               <template v-if="spec.isBoolean">
                 <span :class="model[spec.key] ? 'text-success' : 'text-error'">
                   {{ model[spec.key] ? 'Yes' : 'No' }}
@@ -84,11 +89,3 @@ const specs: SpecItem[] = [
     </div>
   </section>
 </template>
-
-<style lang="scss" scoped>
-table {
-  tr {
-    white-space: nowrap;
-  }
-}
-</style>

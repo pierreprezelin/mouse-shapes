@@ -94,14 +94,14 @@ function clearAll() {
         :class="{ 'py-6': selectedModels.length > 0 }" @update:model-value="handleModelSelection" />
 
       <UTooltip text="Copy to clipboard">
-        <UButton class="text-muted hover:text-white" variant="link"
+        <UButton class="text-muted hover:text-white cursor-pointer" variant="link"
           :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
           :aria-label="copied ? 'Copied!' : 'Copy to clipboard'" @click="handleCopyToClipboard()" />
       </UTooltip>
 
       <UTooltip v-if="selectedModels.length > 1" text="Remove all models from comparison">
         <UButton variant="link" icon="i-lucide-trash" aria-label="Remove all models from comparison"
-          class="text-muted hover:text-white" @click="clearAll()" />
+          class="text-muted hover:text-white cursor-pointer" @click="clearAll()" />
       </UTooltip>
     </div>
 

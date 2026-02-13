@@ -45,16 +45,17 @@ function getTransformOrigin() {
                 {{ model.length }} x {{ model.width }} x {{ model.height }} mm · {{ model.weight }}g
               </span>
             </div>
-            <UButton color="neutral" icon="i-lucide-x" variant="ghost" class="py-3.5 px-3 text-muted" @click="handleModelRemoval(model.id)" />
+            <UButton color="neutral" icon="i-lucide-x" variant="ghost"
+              class="py-3.5 px-3 text-muted hover:text-white cursor-pointer" @click="handleModelRemoval(model.id)" />
           </li>
         </ul>
         <div class="sliders w-full">
           <span class="flex item-baseline mb-4">
-            Thickness <span class="text-muted text-sm ps-2">{{thickness * 25}}%</span>
+            Thickness <span class="text-muted text-sm ps-2">{{ thickness * 25 }}%</span>
           </span>
           <USlider v-model="thickness" :default-value="4" :min="0" :max="8" tooltip />
           <span class="flex item-baseline mt-6 mb-4">
-            Size <span class="text-muted text-sm ps-2">{{scale}}%</span>
+            Size <span class="text-muted text-sm ps-2">{{ scale }}%</span>
           </span>
           <USlider v-model="scale" :default-value="100" :min="0" :max="300" :step="10" tooltip />
           <span class="flex mt-6 mb-4">Alignment</span>
@@ -109,18 +110,8 @@ ul {
         span {
           opacity: 1;
         }
-
-        button {
-          color: var(--ui-text);
-        }
       }
     }
-  }
-}
-
-button {
-  &:hover {
-    cursor: pointer;
   }
 }
 
