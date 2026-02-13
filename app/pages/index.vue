@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useClipboard } from "@vueuse/core";
+import type { Model } from "~/types/database";
 
 const route = useRoute();
 const router = useRouter();
@@ -34,7 +35,15 @@ const { data: models, pending } = await useFetch("/api/models", {
   watch: [urlSlugs],
   immediate: true,
 });
-const selectedModels = computed(() => models.value || []);
+
+const selectedModels = computed(() => {
+  if (!models.value) return [];
+  return models.value
+    .filter((m: Model) => urlSlugs.value.includes(m.slug))
+    .sort((a: Model, b: Model) => {
+      return urlSlugs.value.indexOf(a.slug) - urlSlugs.value.indexOf(b.slug);
+    });
+});
 
 const menuItems = computed(() => {
   if (!catalog.value) return [];
@@ -69,7 +78,7 @@ function handleModelSelection(item: any) {
 }
 
 function handleModelRemoval(id: number) {
-  const model = selectedModels.value.find((m) => m.id === id);
+  const model = selectedModels.value.find((m: Model) => m.id === id);
   if (!model) return;
 
   const updatedSlugs = urlSlugs.value.filter((s) => s !== model.slug);
