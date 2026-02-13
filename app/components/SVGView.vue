@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Model } from '~/types/database'
 
-const thickness = ref(4);
+const thickness = ref(40);
 const scale = ref(80);
 const colors = ["#00C8FF", "#FF00EE", "#FFEA00"];
 
@@ -36,9 +36,9 @@ function getTransformOrigin() {
     <div class="min-h-[calc(100vh-var(--ui-header-height)-88px)] flex flex-nowrap gap-12">
       <div
         class="relative z-2 w-full max-w-92 h-full min-h-[calc(100vh-var(--ui-header-height)-88px)] flex flex-col gap-10 flex-1 shrink-0 justify-center items-center backdrop-blur-sm">
-        <ul class="flex flex-col gap-px w-full overflow-y-auto">
+        <ul class="group flex flex-col gap-px w-full overflow-y-auto">
           <li v-for="model in models" :key="model.id"
-            class="w-full flex justify-between items-start bg-elevated first:rounded-t-lg last:rounded-b-lg">
+            class="w-full flex justify-between items-start bg-elevated first:rounded-t-lg last:rounded-b-lg opacity-100 group-hover:opacity-75 hover:opacity-100!">
             <div class="py-3 ps-3 pe-6">
               <span>{{ model.brand }} {{ model.name }}</span>
               <span class="block text-sm text-muted">
@@ -46,30 +46,32 @@ function getTransformOrigin() {
               </span>
             </div>
             <UButton color="neutral" icon="i-lucide-x" variant="ghost"
-              class="py-3.5 px-3 text-muted hover:text-white cursor-pointer" @click="handleModelRemoval(model.id)" />
+              class="py-3.5 px-3 text-muted hover:text-default cursor-pointer" @click="handleModelRemoval(model.id)" />
           </li>
         </ul>
         <div class="sliders w-full">
           <span class="flex item-baseline mb-4">
-            Thickness <span class="text-muted text-sm ps-2">{{ thickness * 25 }}%</span>
+            Thickness <span class="text-muted text-sm ps-2">{{ thickness * 25 / 10 }}%</span>
           </span>
-          <USlider v-model="thickness" :default-value="4" :min="0" :max="8" tooltip />
+          <USlider v-model="thickness" :default-value="40" :min="0" :max="80" :step="1" />
           <span class="flex item-baseline mt-6 mb-4">
             Size <span class="text-muted text-sm ps-2">{{ scale }}%</span>
           </span>
-          <USlider v-model="scale" :default-value="100" :min="0" :max="300" :step="10" tooltip />
+          <USlider v-model="scale" :default-value="100" :min="0" :max="300" :step="10" />
           <span class="flex mt-6 mb-4">Alignment</span>
           <USelect v-model="alignment"
-            :items="Object.entries(ALIGNMENT).map(([key, value]) => ({ label: value, value: key }))" class="w-32" />
+            :items="Object.entries(ALIGNMENT).map(([key, value]) => ({ label: value, value: key }))"
+            class="w-32 hover:cursor-pointer" />
         </div>
       </div>
-      <div class="relative z-1 flex-1 flex flex-nowrap gap-6 pointer-events-none" :style="{ transform: `scale(${scale / 100})` }">
+      <div class="relative z-1 flex-1 flex flex-nowrap gap-6 pointer-events-none"
+        :style="{ transform: `scale(${scale / 100})` }">
         <div class="relative w-full max-w-[36%] h-full aspect-612/1180">
           <template v-for="model in models" :key="`top-${model.id}`">
             <svg viewBox="0 0 612 1180" class="absolute inset-0 w-full h-full">
-              <path :d="model.shape_path_top" fill="transparent" stroke="#3b82f6" :stroke-width="thickness"
+              <path :d="model.shape_path_top" fill="transparent" stroke="#3b82f6" :stroke-width="thickness / 10"
+                class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
                 vector-effect="non-scaling-stroke" :style="{
-                  // Scale = (Current Mouse Length / Reference Length in mm)
                   transform: `scale(${model.length / 130})`,
                   transformOrigin: getTransformOrigin(),
                   transformBox: 'fill-box'
@@ -81,9 +83,10 @@ function getTransformOrigin() {
           <template v-for="model in models" :key="`side-${model.id}`">
             <div class="absolute inset-0 w-full h-full aspect-1180/388">
               <svg viewBox="0 0 1180 388">
-                <path :d="model.shape_path_side" fill="transparent" stroke="#3b82f6" :stroke-width="thickness"
-                  vector-effect="non-scaling-stroke" :style="{
-                    // Scale = (Current Mouse Length / Reference Length in mm)
+                <path :d="model.shape_path_side" fill="transparent" stroke="#3b82f6" :stroke-width="thickness / 10"
+                  vector-effect="non-scaling-stroke"
+                  class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
+                  :style="{
                     transform: `scale(${model.length / 130})`,
                     transformOrigin: getTransformOrigin(),
                     transformBox: 'fill-box'
@@ -96,27 +99,3 @@ function getTransformOrigin() {
     </div>
   </section>
 </template>
-
-
-<style lang="scss" scoped>
-ul {
-  &:hover {
-    li {
-      span {
-        opacity: 0.75;
-      }
-
-      &:hover {
-        span {
-          opacity: 1;
-        }
-      }
-    }
-  }
-}
-
-path {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-    transform-origin 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-</style>
