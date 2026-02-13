@@ -121,8 +121,7 @@ function clearAll() {
     <div
       class="bg-default flex w-full flex-nowrap items-center justify-center gap-3"
       :class="
-        // selectedModels.length > 0 ? 'fixed top-[h-screen] left-0 z-50 py-6' : ''
-        selectedModels.length > 0 ? 'py-6' : ''
+        selectedModels.length > 0 ? 'fixed top-[h-screen] left-0 z-50 py-6' : ''
       "
     >
       <UInputMenu
