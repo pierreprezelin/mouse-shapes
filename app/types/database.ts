@@ -31,6 +31,8 @@ export type Database = {
           material: Database["public"]["Enums"]["material"] | null
           middle_buttons: number
           name: string
+          path_side: string | null
+          path_top: string | null
           polling_rate: number | null
           ring_finger_rest: boolean
           sensor: Database["public"]["Enums"]["sensor"] | null
@@ -39,14 +41,16 @@ export type Database = {
             | Database["public"]["Enums"]["sensor_technology"]
             | null
           shape: Database["public"]["Enums"]["shape"]
-          shape_path_side: string | null
-          shape_path_top: string | null
           side_buttons: number
           side_curvature: Database["public"]["Enums"]["side_curvature"] | null
-          slug: string
+          slug: string | null
           switches: Database["public"]["Enums"]["switches"] | null
           thumb_rest: boolean
           tracking_speed: number | null
+          viewbox_height_side: number | null
+          viewbox_height_top: number | null
+          viewbox_width_side: number | null
+          viewbox_width_top: number | null
           weight: number
           width: number
         }
@@ -66,6 +70,8 @@ export type Database = {
           material?: Database["public"]["Enums"]["material"] | null
           middle_buttons?: number
           name: string
+          path_side?: string | null
+          path_top?: string | null
           polling_rate?: number | null
           ring_finger_rest?: boolean
           sensor?: Database["public"]["Enums"]["sensor"] | null
@@ -76,14 +82,16 @@ export type Database = {
             | Database["public"]["Enums"]["sensor_technology"]
             | null
           shape: Database["public"]["Enums"]["shape"]
-          shape_path_side?: string | null
-          shape_path_top?: string | null
           side_buttons?: number
           side_curvature?: Database["public"]["Enums"]["side_curvature"] | null
-          slug: string
+          slug?: string | null
           switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null
+          viewbox_height_side?: number | null
+          viewbox_height_top?: number | null
+          viewbox_width_side?: number | null
+          viewbox_width_top?: number | null
           weight?: number
           width?: number
         }
@@ -103,6 +111,8 @@ export type Database = {
           material?: Database["public"]["Enums"]["material"] | null
           middle_buttons?: number
           name?: string
+          path_side?: string | null
+          path_top?: string | null
           polling_rate?: number | null
           ring_finger_rest?: boolean
           sensor?: Database["public"]["Enums"]["sensor"] | null
@@ -113,14 +123,16 @@ export type Database = {
             | Database["public"]["Enums"]["sensor_technology"]
             | null
           shape?: Database["public"]["Enums"]["shape"]
-          shape_path_side?: string | null
-          shape_path_top?: string | null
           side_buttons?: number
           side_curvature?: Database["public"]["Enums"]["side_curvature"] | null
-          slug: string
+          slug?: string | null
           switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null
+          viewbox_height_side?: number | null
+          viewbox_height_top?: number | null
+          viewbox_width_side?: number | null
+          viewbox_width_top?: number | null
           weight?: number
           width?: number
         }

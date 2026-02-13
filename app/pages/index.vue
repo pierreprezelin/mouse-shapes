@@ -39,9 +39,9 @@ const { data: models, pending } = await useFetch("/api/models", {
 const selectedModels = computed(() => {
   if (!models.value) return [];
   return models.value
-    .filter((m: Model) => urlSlugs.value.includes(m.slug))
+    .filter((m: Model) => urlSlugs.value.includes(m.slug as string))
     .sort((a: Model, b: Model) => {
-      return urlSlugs.value.indexOf(a.slug) - urlSlugs.value.indexOf(b.slug);
+      return urlSlugs.value.indexOf(a.slug as string) - urlSlugs.value.indexOf(b.slug as string);
     });
 });
 
@@ -137,7 +137,7 @@ function clearAll() {
         clear-icon="i-lucide-circle-x"
         :disabled="selectedModels.length >= 5"
         class="w-100"
-        :class="{ 'me-2 py-6': selectedModels.length > 0 }"
+        :class="{ 'me-2': selectedModels.length > 0 }"
         @update:model-value="handleModelSelection"
       />
       <UTooltip v-if="!!route.query.models" text="Copy to clipboard">
