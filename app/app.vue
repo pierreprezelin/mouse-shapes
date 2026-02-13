@@ -44,7 +44,7 @@ useSeoMeta({
     </UMain>
     <UFooter>
       <template #default>
-        <p class="text-sm text-muted">
+        <p class="text-sm text-muted pt-6">
           🧪 A coding exercise based on <NuxtLink to="https://www.eloshapes.com/" target="_blank" class="hover:text-white transition-colors">eloshapes.com</NuxtLink> · Pierre Prézelin © {{ new Date().getFullYear() }}
         </p>
       </template>
@@ -55,7 +55,7 @@ useSeoMeta({
 <style lang="scss">
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 main {
