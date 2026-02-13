@@ -4,7 +4,7 @@ import type { Model } from "~/types/database";
 const colors = ["#00C8FF", "#FF00EE", "#FFEA00", "#00FFC4", "#9E00FF"];
 
 const thickness = ref(20);
-const scale = ref(100);
+const scale = ref(80);
 const hiddenModels = ref(new Set<number>());
 const hoveredModelId = ref<number | null>(null);
 
@@ -116,13 +116,15 @@ function getTransformOrigin() {
           />
           <span class="item-baseline mt-6 mb-4 flex">
             Size
-            <span class="text-muted ps-2 pt-1 text-sm">{{ scale }}%</span>
+            <span class="text-muted ps-2 pt-1 text-sm"
+              >{{ scale * 1.25 }}%</span
+            >
           </span>
           <USlider
             v-model="scale"
-            :default-value="100"
+            :default-value="80"
             :min="0"
-            :max="200"
+            :max="160"
             :step="1"
           />
           <span class="mt-6 mb-4 flex">Alignment</span>
@@ -143,81 +145,83 @@ function getTransformOrigin() {
         :style="{ transform: `scale(${scale / 100})` }"
       >
         <div
-          class="inner-container absolute flex h-117.5 w-full items-center gap-6"
+          class="inner-container absolute flex h-117.5 w-full items-center gap-4"
         >
           <div
-            class="left-side relative flex h-full w-full max-w-[36%] items-center justify-center"
+            class="left-side relative flex h-full w-full items-center justify-center"
           >
             <template v-for="(model, index) in models" :key="`top-${model.id}`">
-              <div class="absolute flex w-full pointer-events-none">
-                <svg
-                  v-if="!isHidden(model.id)"
-                  :viewBox="`0 0 ${model.viewbox_width_top} ${model.viewbox_height_top}`"
-                  class="max-h-full w-auto"
-                  :class="
-                    hoveredModelId !== null && hoveredModelId === model.id
-                      ? 'z-10'
-                      : ''
-                  "
-                  :style="{ height: `${model.viewbox_height_top}px` }"
-                >
-                  <path
-                    :d="model.path_top"
-                    fill="transparent"
-                    :stroke="colors[index % colors.length]"
-                    :stroke-width="thickness / 10"
-                    class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
-                    vector-effect="non-scaling-stroke"
-                    :style="{
-                      transformOrigin: getTransformOrigin(),
-                      transformBox: 'fill-box',
-                      opacity:
-                        hoveredModelId !== null && hoveredModelId !== model.id
-                          ? 0.2
-                          : 1,
-                    }"
-                  />
-                </svg>
-              </div>
+              <svg
+                v-if="!isHidden(model.id)"
+                :viewBox="`0 0 ${model.viewbox_width_top} ${model.viewbox_height_top}`"
+                class="absolute"
+                :class="
+                  hoveredModelId !== null && hoveredModelId === model.id
+                    ? 'z-10'
+                    : ''
+                "
+                :style="{
+                  width: `${model.viewbox_width_top}px`,
+                  height: `${model.viewbox_height_top}px`,
+                }"
+              >
+                <path
+                  :d="model.path_top"
+                  fill="transparent"
+                  :stroke="colors[index % colors.length]"
+                  :stroke-width="thickness / 10"
+                  class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
+                  vector-effect="non-scaling-stroke"
+                  :style="{
+                    transformOrigin: getTransformOrigin(),
+                    transformBox: 'fill-box',
+                    opacity:
+                      hoveredModelId !== null && hoveredModelId !== model.id
+                        ? 0.2
+                        : 1,
+                  }"
+                />
+              </svg>
             </template>
           </div>
           <div
-            class="right-side aspect-square relative flex h-full w-full items-end justify-center"
+            class="right-side relative flex aspect-square h-full w-full items-end justify-center"
           >
             <template
               v-for="(model, index) in models"
               :key="`side-${model.id}`"
             >
-              <div class="absolute flex w-full pointer-events-none">
-                <svg
-                  v-if="!isHidden(model.id)"
-                  :viewBox="`0 0 ${model.viewbox_width_side} ${model.viewbox_height_side}`"
-                  class="h-auto max-w-full"
-                  :class="
-                    hoveredModelId !== null && hoveredModelId === model.id
-                      ? 'z-10'
-                      : ''
-                  "
-                  :style="{ width: `${model.viewbox_width_side}px` }"
-                >
-                  <path
-                    :d="model.path_side"
-                    fill="transparent"
-                    :stroke="colors[index % colors.length]"
-                    :stroke-width="thickness / 10"
-                    vector-effect="non-scaling-stroke"
-                    class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
-                    :style="{
-                      transformOrigin: getTransformOrigin(),
-                      transformBox: 'fill-box',
-                      opacity:
-                        hoveredModelId !== null && hoveredModelId !== model.id
-                          ? 0.2
-                          : 1,
-                    }"
-                  />
-                </svg>
-              </div>
+              <svg
+                v-if="!isHidden(model.id)"
+                :viewBox="`0 0 ${model.viewbox_width_side} ${model.viewbox_height_side}`"
+                class="absolute"
+                :class="
+                  hoveredModelId !== null && hoveredModelId === model.id
+                    ? 'z-10'
+                    : ''
+                "
+                :style="{
+                  width: `${model.viewbox_width_side}px`,
+                  height: `${model.viewbox_height_side}px`,
+                }"
+              >
+                <path
+                  :d="model.path_side"
+                  fill="transparent"
+                  :stroke="colors[index % colors.length]"
+                  :stroke-width="thickness / 10"
+                  vector-effect="non-scaling-stroke"
+                  class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
+                  :style="{
+                    transformOrigin: getTransformOrigin(),
+                    transformBox: 'fill-box',
+                    opacity:
+                      hoveredModelId !== null && hoveredModelId !== model.id
+                        ? 0.2
+                        : 1,
+                  }"
+                />
+              </svg>
             </template>
           </div>
         </div>
