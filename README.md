@@ -6,9 +6,9 @@ I often visit [eloshapes.com](https://www.eloshapes.com/), which is a gem of a w
 
 - 💚 [Nuxt](https://github.com/sveltejs/kit) - SSG, file-based routing, etc.
 
-- 🌊 [Nuxt UI](https://ui.nuxt.com/) - Styles with [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss), a11y with [Reka UI](https://reka-ui.com/) and type-safe with [TypeScript](https://github.com/microsoft/TypeScript)
+- 🌊 [Nuxt UI](https://ui.nuxt.com/) - Styles with [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss), a11y with [Reka UI](https://reka-ui.com/) and type-safety with [TypeScript](https://github.com/microsoft/TypeScript)
 
-- 🥟 [Bun](https://bun.com/) · For near-instant package installation and update (yes, it's a gyoza emoji)
+- 🚀 [pnpm](https://pnpm.io/) · [npm](https://www.npmjs.com/) but faster
 
 - 💲 [Supabase](https://supabase.com/) - The Open Source Firebase Alternative.
 
