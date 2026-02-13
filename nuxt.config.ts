@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/fonts",
     "@nuxtjs/supabase",
-    "nuxt-toast",
   ],
   devtools: {
     enabled: true,
@@ -43,12 +42,5 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
     types: "@/types/database.ts",
-  },
-  toast: {
-    settings: {
-      timeout: 3000,
-      closeOnEscape: true,
-      closeOnClick: true,
-    },
   },
 });

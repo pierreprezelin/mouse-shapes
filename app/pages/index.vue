@@ -84,7 +84,11 @@ function handleModelRemoval(id: number) {
 
 function handleCopyToClipboard() {
   copy(shareUrl.value);
-  toast.success({ title: "URL copied to clipboard!" });
+  toast.add({
+    title: "URL copied to clipboard.",
+    icon: "i-lucide-check",
+    color: "success",
+  });
 }
 
 function clearAll() {

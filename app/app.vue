@@ -1,4 +1,10 @@
 <script setup>
+const toaster = { duration: 3000 }
+
+const title = "MouseShapes";
+const description =
+  "A reverse-engineering of eloshapes.com for fun and to get up to date with Nuxt v4.";
+
 useHead({
   meta: [{ name: "viewport", content: "width=device-width, initial-scale=1" }],
   link: [{ rel: "icon", href: "/favicon.ico" }],
@@ -6,10 +12,6 @@ useHead({
     lang: "en",
   },
 });
-
-const title = "MouseShapes";
-const description =
-  "A reverse-engineering of eloshapes.com for fun and to get up to date with Nuxt v4.";
 
 useSeoMeta({
   title,
@@ -24,7 +26,7 @@ useSeoMeta({
 
 <template>
   <NuxtLoadingIndicator />
-  <UApp>
+  <UApp :toaster="toaster">
     <UHeader>
       <template #left>
         <NuxtLink to="/" class="shrink-0 text-lg font-semibold">
