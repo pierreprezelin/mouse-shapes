@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import type { Model } from "~/types/database";
 
+const colors = ["#00C8FF", "#FF00EE", "#FFEA00", "#00FFC4", "#9E00FF"];
+
 const thickness = ref(20);
 const scale = ref(100);
 const hiddenModels = ref(new Set<number>());
 const hoveredModelId = ref<number | null>(null);
-
-const colors = ["#00C8FF", "#FF00EE", "#FFEA00"];
 
 defineProps<{
   models: Model[];
@@ -60,19 +60,27 @@ function getTransformOrigin() {
       >
         <ul class="group flex w-full flex-col gap-px overflow-y-auto">
           <li
-            v-for="model in models"
+            v-for="(model, index) in models"
             :key="model.id"
-            class="bg-elevated flex w-full items-center justify-between gap-6 opacity-100 group-hover:opacity-[66.666%] first:rounded-t-lg last:rounded-b-lg hover:opacity-100"
+            class="bg-elevated flex w-full items-center justify-between opacity-100 group-hover:opacity-[66.666%] first:rounded-t-lg last:rounded-b-lg hover:opacity-100"
             :class="isHidden(model.id) ? 'opacity-50!' : ''"
-            @mouseenter="hoveredModelId = model.id"
+            @mouseenter="
+              !isHidden(model.id) ? (hoveredModelId = model.id) : null
+            "
             @mouseleave="hoveredModelId = null"
           >
-            <div class="flex flex-col justify-center py-3 ps-3">
-              <span>{{ model.brand }} {{ model.name }}</span>
-              <span class="text-muted block text-sm">
-                {{ model.length }} x {{ model.width }} x {{ model.height }} mm ·
-                {{ model.weight }}g
-              </span>
+            <div class="flex gap-4 p-2">
+              <div
+                class="w-2 shrink-0 self-stretch rounded-full"
+                :style="{ backgroundColor: colors[index % colors.length] }"
+              />
+              <div class="flex flex-col justify-center py-2">
+                <span>{{ model.brand }} {{ model.name }}</span>
+                <span class="text-muted block text-sm">
+                  {{ model.length }} x {{ model.width }} x {{ model.height }} mm
+                  · {{ model.weight }}g
+                </span>
+              </div>
             </div>
             <div class="flex flex-col justify-center pe-1">
               <UButton
@@ -97,9 +105,7 @@ function getTransformOrigin() {
         <div class="sliders w-full">
           <span class="item-baseline mb-4 flex">
             Thickness
-            <span class="text-muted ps-2 text-sm">
-              {{ thickness * 5 }}%
-            </span>
+            <span class="text-muted ps-2 text-sm"> {{ thickness * 5 }}% </span>
           </span>
           <USlider
             v-model="thickness"
@@ -137,7 +143,7 @@ function getTransformOrigin() {
         :style="{ transform: `scale(${scale / 100})` }"
       >
         <div class="relative aspect-612/1180 h-full w-full max-w-[36%]">
-          <template v-for="model in models" :key="`top-${model.id}`">
+          <template v-for="(model, index) in models" :key="`top-${model.id}`">
             <svg
               v-if="!isHidden(model.id)"
               viewBox="0 0 612 1180"
@@ -151,7 +157,7 @@ function getTransformOrigin() {
               <path
                 :d="model.shape_path_top"
                 fill="transparent"
-                stroke="#3b82f6"
+                :stroke="colors[index % colors.length]"
                 :stroke-width="thickness / 10"
                 class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
                 vector-effect="non-scaling-stroke"
@@ -169,7 +175,7 @@ function getTransformOrigin() {
           </template>
         </div>
         <div class="relative aspect-1180/388 h-full w-full">
-          <template v-for="model in models" :key="`side-${model.id}`">
+          <template v-for="(model, index) in models" :key="`side-${model.id}`">
             <svg
               v-if="!isHidden(model.id)"
               viewBox="0 0 1180 388"
@@ -183,7 +189,7 @@ function getTransformOrigin() {
               <path
                 :d="model.shape_path_side"
                 fill="transparent"
-                stroke="#3b82f6"
+                :stroke="colors[index % colors.length]"
                 :stroke-width="thickness / 10"
                 vector-effect="non-scaling-stroke"
                 class="[transition:transform_0.4s_cubic-bezier(0.4,0,0.2,1),transform-origin_0.4s_cubic-bezier(0.4,0,0.2,1)]"
