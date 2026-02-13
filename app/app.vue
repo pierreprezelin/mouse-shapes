@@ -33,19 +33,40 @@ useSeoMeta({
       </template>
       <template #right>
         <UColorModeButton />
-        <UButton to="https://pierreprezelin.com/" target="_blank" icon="i-lucide-rocket"
-          aria-label="GitHub" color="neutral" variant="ghost" />
-        <UButton to="https://github.com/pierreprezelin/mouse-shapes" target="_blank" icon="i-simple-icons-github"
-          aria-label="GitHub" color="neutral" variant="ghost" />
+        <UButton
+          to="https://pierreprezelin.com/"
+          target="_blank"
+          icon="i-lucide-rocket"
+          aria-label="GitHub"
+          color="neutral"
+          variant="ghost"
+        />
+        <UButton
+          to="https://github.com/pierreprezelin/mouse-shapes"
+          target="_blank"
+          icon="i-simple-icons-github"
+          aria-label="GitHub"
+          color="neutral"
+          variant="ghost"
+        />
       </template>
     </UHeader>
+
     <UMain>
       <NuxtPage />
     </UMain>
+
     <UFooter>
       <template #default>
-        <p class="text-sm text-muted pt-6">
-          🧪 A coding exercise based on <NuxtLink to="https://www.eloshapes.com/" target="_blank" class="hover:text-white transition-colors">eloshapes.com</NuxtLink> · Pierre Prézelin © {{ new Date().getFullYear() }}
+        <p class="text-muted pt-6 text-sm">
+          🧪 A coding exercise based on
+          <NuxtLink
+            to="https://www.eloshapes.com/"
+            target="_blank"
+            class="transition-colors hover:text-white"
+            >eloshapes.com</NuxtLink
+          >
+          · Pierre Prézelin © {{ new Date().getFullYear() }}
         </p>
       </template>
     </UFooter>
