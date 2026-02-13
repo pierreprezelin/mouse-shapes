@@ -3,10 +3,13 @@ import { useClipboard } from '@vueuse/core'
 
 const route = useRoute()
 const router = useRouter()
+const requestUrl = useRequestURL()
 const toast = useToast()
 const { copy, copied } = useClipboard()
 
-const shareUrl = computed(() => typeof window !== 'undefined' ? window.location.href : '')
+const shareUrl = computed(() => {
+  return requestUrl.href
+})
 const searchTerm = ref("")
 
 const DEFAULT_MODELS = ['zowie-ec3-dw', 'lamzu-atlantis-mini', 'logitech-g-pro-x-superlight-2']
