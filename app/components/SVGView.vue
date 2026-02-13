@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { Model } from "~/types/database";
 
-const thickness = ref(40);
-const scale = ref(80);
+const thickness = ref(20);
+const scale = ref(100);
 const hiddenModels = ref(new Set<number>());
 const hoveredModelId = ref<number | null>(null);
 
@@ -98,14 +98,14 @@ function getTransformOrigin() {
           <span class="item-baseline mb-4 flex">
             Thickness
             <span class="text-muted ps-2 text-sm">
-              {{ (thickness * 25) / 10 }}%
+              {{ thickness * 5 }}%
             </span>
           </span>
           <USlider
             v-model="thickness"
-            :default-value="40"
+            :default-value="20"
             :min="0"
-            :max="80"
+            :max="40"
             :step="1"
           />
           <span class="item-baseline mt-6 mb-4 flex">
@@ -116,8 +116,8 @@ function getTransformOrigin() {
             v-model="scale"
             :default-value="100"
             :min="0"
-            :max="300"
-            :step="10"
+            :max="200"
+            :step="1"
           />
           <span class="mt-6 mb-4 flex">Alignment</span>
           <USelect
