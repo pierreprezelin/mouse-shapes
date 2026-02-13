@@ -32,6 +32,14 @@ const { data: models, pending } = await useFetch('/api/models', {
 })
 const selectedModels = computed(() => models.value || [])
 
+const menuItems = computed(() => {
+  if (!catalog.value) return []
+  return catalog.value.map((item: any) => ({
+    ...item,
+    disabled: urlSlugs.value.includes(item.slug || item.value)
+  }))
+})
+
 onMounted(() => {
   if (!route.query.models) {
     router.replace({
@@ -90,9 +98,9 @@ function clearAll() {
       </p>
     </template>
     <div class="sticky z-20 top-0 flex flex-nowrap justify-center items-center gap-3">
-      <UInputMenu v-model:search-term="searchTerm" :items="catalog || []" :loading="pending"
+      <UInputMenu v-model:search-term="searchTerm" :items="menuItems || []" :loading="pending"
         placeholder="Add mouse to comparison..." variant="soft" size="xl" open-on-click open-on-focus clear
-        clear-icon="i-lucide-circle-x" :selected-icon="null" :disabled="selectedModels.length >= 5" class="w-100"
+        clear-icon="i-lucide-circle-x" :disabled="selectedModels.length >= 5" class="w-100"
         :class="{ 'me-2 py-6': selectedModels.length > 0 }" @update:model-value="handleModelSelection" />
       <UTooltip v-if="!!route.query.models" text="Copy to clipboard">
         <UButton class="text-muted hover:text-default cursor-pointer" variant="link"
