@@ -53,10 +53,10 @@ function getTransformOrigin() {
 <template>
   <section>
     <div
-      class="flex min-h-[calc(100vh-var(--ui-header-height)-88px)] flex-nowrap gap-12"
+      class="flex min-h-[calc(100vh-var(--ui-header-height))] flex-nowrap gap-12"
     >
       <div
-        class="relative z-2 flex h-full min-h-[calc(100vh-var(--ui-header-height)-88px)] w-full max-w-92 flex-1 shrink-0 flex-col items-center justify-center gap-10 backdrop-blur-sm"
+        class="relative z-2 flex h-full min-h-[calc(100vh-var(--ui-header-height))] w-full max-w-92 flex-1 shrink-0 flex-col items-center justify-center gap-10 pt-16 backdrop-blur-sm"
       >
         <ul class="group flex w-full flex-col gap-px overflow-y-auto">
           <li
@@ -133,7 +133,7 @@ function getTransformOrigin() {
         </div>
       </div>
       <div
-        class="pointer-events-none relative z-1 flex flex-1 flex-nowrap gap-6"
+        class="pointer-events-none relative z-1 flex flex-1 flex-nowrap gap-6 pt-16"
         :style="{ transform: `scale(${scale / 100})` }"
       >
         <div class="relative aspect-612/1180 h-full w-full max-w-[36%]">

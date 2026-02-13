@@ -106,7 +106,10 @@ function clearAll() {
       </p>
     </template>
     <div
-      class="sticky top-0 z-20 flex flex-nowrap items-center justify-center gap-3"
+      class="bg-default flex w-full flex-nowrap items-center justify-center gap-3"
+      :class="
+        selectedModels.length > 0 ? 'fixed top-[h-screen] left-0 z-50' : ''
+      "
     >
       <UInputMenu
         v-model:search-term="searchTerm"

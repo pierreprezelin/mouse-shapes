@@ -56,7 +56,7 @@ useSeoMeta({
     </UMain>
     <UFooter>
       <template #default>
-        <p class="text-muted pt-6 text-sm">
+        <p class="text-muted lg:pt-6 text-sm">
           🧪 A coding exercise based on
           <NuxtLink
             to="https://www.eloshapes.com/"
