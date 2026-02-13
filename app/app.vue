@@ -51,11 +51,9 @@ useSeoMeta({
         />
       </template>
     </UHeader>
-
     <UMain>
       <NuxtPage />
     </UMain>
-
     <UFooter>
       <template #default>
         <p class="text-muted pt-6 text-sm">

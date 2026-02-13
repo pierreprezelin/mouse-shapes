@@ -105,7 +105,6 @@ function clearAll() {
         with Nuxt v4.
       </p>
     </template>
-
     <div
       class="sticky top-0 z-20 flex flex-nowrap items-center justify-center gap-3"
     >
@@ -125,7 +124,6 @@ function clearAll() {
         :class="{ 'me-2 py-6': selectedModels.length > 0 }"
         @update:model-value="handleModelSelection"
       />
-
       <UTooltip v-if="!!route.query.models" text="Copy to clipboard">
         <UButton
           class="text-muted hover:text-default cursor-pointer"
@@ -135,7 +133,6 @@ function clearAll() {
           @click="handleCopyToClipboard()"
         />
       </UTooltip>
-
       <UTooltip
         v-if="selectedModels.length > 1"
         text="Remove all models from comparison"
@@ -149,7 +146,6 @@ function clearAll() {
         />
       </UTooltip>
     </div>
-
     <template v-if="selectedModels.length > 0">
       <SVGView :models="selectedModels" @remove-model="handleModelRemoval" />
       <Table :models="selectedModels" @remove-model="handleModelRemoval" />

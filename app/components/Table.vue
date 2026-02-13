@@ -83,7 +83,6 @@ const specs: SpecItem[] = [
             </th>
           </tr>
         </thead>
-
         <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
           <tr v-for="spec in specs" :key="spec.label">
             <td class="bg-default w-56 p-4 text-sm font-semibold">
