@@ -49,20 +49,24 @@ const specs: SpecItem[] = [
 
 <template>
   <section>
-    <div class="relative overflow-x-auto overflow-y-auto w-max max-h-[calc(100vh-var(--ui-header-height)-88px)] mx-auto border border-zinc-200 dark:border-zinc-700 rounded-lg">
+    <div
+      class="relative overflow-x-auto overflow-y-auto w-max max-h-[calc(100vh-var(--ui-header-height)-88px)] mx-auto border border-zinc-200 dark:border-zinc-700 rounded-lg">
       <table class="w-max text-sm text-left">
+
         <thead class="relative z-20">
           <tr class="border-b border-zinc-200 dark:border-zinc-700">
             <th class="sticky z-20 top-0 w-52 min-w-56 bg-default"></th>
             <th v-for="(model, index) in models" :key="model.id"
               class="sticky z-20 top-0 w-52 min-w-56 p-4 text-center font-semibold bg-default"
               :class="{ 'bg-elevated': index === 0 }">
-              <UButton variant="ghost" icon="i-lucide-x" class="text-muted hover:text-default cursor-pointer" @click="handleModelRemoval(model.id)" />
+              <UButton variant="ghost" icon="i-lucide-x" class="text-muted hover:text-default cursor-pointer"
+                @click="handleModelRemoval(model.id)" />
               <span class="block text-muted text-sm mt-2.5">{{ model.brand }}</span>
               {{ model.name }}
             </th>
           </tr>
         </thead>
+
         <tbody class="divide-y divide-zinc-200 dark:divide-zinc-700">
           <tr v-for="spec in specs" :key="spec.label">
             <td class="w-56 p-4 font-semibold text-sm bg-default">
@@ -85,6 +89,7 @@ const specs: SpecItem[] = [
             </td>
           </tr>
         </tbody>
+
       </table>
     </div>
   </section>

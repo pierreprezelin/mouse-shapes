@@ -34,6 +34,7 @@ function getTransformOrigin() {
 <template>
   <section>
     <div class="min-h-[calc(100vh-var(--ui-header-height)-88px)] flex flex-nowrap gap-12">
+
       <div
         class="relative z-2 w-full max-w-92 h-full min-h-[calc(100vh-var(--ui-header-height)-88px)] flex flex-col gap-10 flex-1 shrink-0 justify-center items-center backdrop-blur-sm">
         <ul class="group flex flex-col gap-px w-full overflow-y-auto">
@@ -64,6 +65,7 @@ function getTransformOrigin() {
             class="w-32 hover:cursor-pointer" />
         </div>
       </div>
+
       <div class="relative z-1 flex-1 flex flex-nowrap gap-6 pointer-events-none"
         :style="{ transform: `scale(${scale / 100})` }">
         <div class="relative w-full max-w-[36%] h-full aspect-612/1180">
@@ -96,6 +98,7 @@ function getTransformOrigin() {
           </template>
         </div>
       </div>
+
     </div>
   </section>
 </template>
