@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxt/fonts",
     "@nuxtjs/supabase",
-    'nuxt-toast'
+    "nuxt-toast",
   ],
   devtools: {
     enabled: true,
@@ -29,6 +29,9 @@ export default defineNuxtConfig({
   app: {
     pageTransition: { name: "page", mode: "out-in" },
   },
+  colorMode: {
+    preference: "dark",
+  },
   nitro: {
     prerender: {
       autoSubfolderIndex: false,
@@ -46,6 +49,6 @@ export default defineNuxtConfig({
       timeout: 3000,
       closeOnEscape: true,
       closeOnClick: true,
-    }
-  }
+    },
+  },
 });
