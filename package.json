@@ -1,5 +1,5 @@
 {
-  "name": "nuxt-app",
+  "name": "mouse-shapes",
   "private": true,
   "type": "module",
   "scripts": {
@@ -11,20 +11,22 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
-    "@iconify-json/lucide": "^1.2.87",
-    "@iconify-json/simple-icons": "^1.2.68",
-    "@nuxt/a11y": "1.0.0-alpha.1",
-    "@nuxt/hints": "1.0.0-alpha.6",
-    "@nuxt/image": "2.0.0",
+    "@iconify-json/lucide": "^1.2.90",
+    "@iconify-json/simple-icons": "^1.2.70",
     "@nuxt/ui": "^4.4.0",
-    "nuxt": "^4.3.0",
-    "tailwindcss": "^4.1.18"
+    "@nuxtjs/supabase": "2.0.3",
+    "@vueuse/core": "^14.2.1",
+    "nuxt": "^4.3.1",
+    "tailwindcss": "^4.1.18",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@nuxt/eslint": "^1.13.0",
+    "@nuxt/eslint": "^1.15.1",
     "eslint": "^9.39.2",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "sass": "^1.97.3",
     "typescript": "^5.9.3",
     "vue-tsc": "^3.2.4"
   },
-  "packageManager": "pnpm@10.28.2"
+  "packageManager": "pnpm@10.30.0"
 }
