@@ -5,5 +5,10 @@ export default defineAppConfig({
       primary: "black",
       neutral: "zinc",
     },
+    header: {
+      slots: {
+        toggle: 'hidden'
+      }
+    }
   },
 });

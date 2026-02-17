@@ -119,7 +119,7 @@ function clearAll() {
       </p>
     </template>
     <div
-      class="bg-default flex w-full flex-nowrap items-center justify-center gap-3"
+      class="bg-default flex w-full flex-nowrap items-center justify-center gap-1.5 md:gap-3"
       :class="
         selectedModels.length > 0 ? 'fixed top-[h-screen] left-0 z-50 py-6' : ''
       "
@@ -136,7 +136,7 @@ function clearAll() {
         clear
         clear-icon="i-lucide-circle-x"
         :disabled="selectedModels.length >= 5"
-        class="w-100"
+        class="md:w-100"
         :class="{ 'me-2': selectedModels.length > 0 }"
         @update:model-value="handleModelSelection"
       />

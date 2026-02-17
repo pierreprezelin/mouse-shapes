@@ -47,10 +47,10 @@ export type Database = {
           switches: Database["public"]["Enums"]["switches"] | null
           thumb_rest: boolean
           tracking_speed: number | null
-          viewbox_height_side: number | null
-          viewbox_height_top: number | null
-          viewbox_width_side: number | null
-          viewbox_width_top: number | null
+          viewbox_height_side: number
+          viewbox_height_top: number
+          viewbox_width_side: number
+          viewbox_width_top: number
           weight: number
           width: number
         }
@@ -88,10 +88,10 @@ export type Database = {
           switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null
-          viewbox_height_side?: number | null
-          viewbox_height_top?: number | null
-          viewbox_width_side?: number | null
-          viewbox_width_top?: number | null
+          viewbox_height_side?: number
+          viewbox_height_top?: number
+          viewbox_width_side?: number
+          viewbox_width_top?: number
           weight?: number
           width?: number
         }
@@ -129,10 +129,10 @@ export type Database = {
           switches?: Database["public"]["Enums"]["switches"] | null
           thumb_rest?: boolean
           tracking_speed?: number | null
-          viewbox_height_side?: number | null
-          viewbox_height_top?: number | null
-          viewbox_width_side?: number | null
-          viewbox_width_top?: number | null
+          viewbox_height_side?: number
+          viewbox_height_top?: number
+          viewbox_width_side?: number
+          viewbox_width_top?: number
           weight?: number
           width?: number
         }
