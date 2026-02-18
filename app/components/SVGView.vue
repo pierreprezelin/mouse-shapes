@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { transform } from "typescript";
-import type { Model } from "~/types/database";
+import { useElementSize } from "@vueuse/core";
+import type { Model } from "@/types/database";
 
 const colors = ["#00C8FF", "#FF00EE", "#FFEA00", "#00FFC4", "#9E00FF"];
 
@@ -50,33 +50,48 @@ function getTransformOrigin() {
   }[alignment.value];
 }
 
-const MAX_DISPLAY_HEIGHT = 470;
+const mainContainer = ref<HTMLElement | null>(null);
+const { width: containerWidth, height: containerHeight } =
+  useElementSize(mainContainer);
+
+const isReady = computed(
+  () => containerWidth.value > 0 && containerHeight.value > 0,
+);
 
 const globalScaleFactor = computed(() => {
-  if (!props.models || props.models.length === 0) return 1;
+  if (!props.models?.length || !containerWidth.value) return 1;
+  if (!isReady.value || !props.models?.length) return 0.1;
 
   const visibleModels = props.models.filter((m) => !isHidden(m.id));
   if (visibleModels.length === 0) return 1;
 
-  const maxVB = Math.max(
+  const maxTopH = Math.max(...visibleModels.map((m) => m.viewbox_height_top));
+  const maxSideH = Math.max(...visibleModels.map((m) => m.viewbox_height_side));
+  const maxW = Math.max(
     ...visibleModels.map((m) =>
-      Math.max(m.viewbox_height_top, m.viewbox_height_side),
+      Math.max(m.viewbox_width_top, m.viewbox_width_side),
     ),
   );
 
-  return MAX_DISPLAY_HEIGHT / maxVB;
+  const isMobile = containerWidth.value < 1024;
+
+  const verticalLimit = containerHeight.value / Math.max(maxTopH, maxSideH);
+  const horizontalLimit = containerWidth.value / 2 / maxW;
+
+  return isMobile ? horizontalLimit : Math.min(verticalLimit, horizontalLimit);
 });
 </script>
 
 <template>
   <section>
     <div
-      class="flex h-[calc(100vh-var(--ui-header-height))] flex-col-reverse flex-nowrap gap-12 pb-6 lg:flex-row"
+      class="flex h-[calc(100vh-var(--ui-header-height))] flex-col-reverse flex-nowrap gap-4 pb-4 lg:flex-row lg:gap-12"
     >
       <div
-        class="relative z-2 flex h-full w-full flex-1 shrink-0 flex-col items-center justify-center gap-10 backdrop-blur-sm lg:max-w-92 lg:pt-22"
+        class="relative z-2 flex h-full max-h-[50%] w-full flex-1 shrink-0 flex-col items-center justify-between gap-4 backdrop-blur-sm lg:max-h-full lg:max-w-92 lg:pt-18 lg:pb-0"
       >
-        <ul class="group flex w-full flex-col gap-px overflow-y-auto">
+        <div class="hidden lg:block"></div>
+        <ul class="group max-h flex w-full flex-col gap-px overflow-y-auto">
           <li
             v-for="(model, index) in models"
             :key="model.id"
@@ -92,7 +107,7 @@ const globalScaleFactor = computed(() => {
                 class="w-2 shrink-0 self-stretch rounded-full"
                 :style="{ backgroundColor: colors[index % colors.length] }"
               />
-              <div class="flex flex-col justify-center py-2">
+              <div class="flex flex-col justify-center py-1">
                 <span>{{ model.brand }} {{ model.name }}</span>
                 <span class="text-muted block text-sm">
                   {{ model.length }} x {{ model.width }} x {{ model.height }} mm
@@ -120,50 +135,62 @@ const globalScaleFactor = computed(() => {
             </div>
           </li>
         </ul>
-        <div class="sliders w-full">
-          <span class="item-baseline mb-4 flex">
-            Thickness
-            <span class="text-muted ps-2 text-sm"> {{ thickness * 2 }}% </span>
-          </span>
-          <USlider
-            v-model="thickness"
-            :default-value="50"
-            :min="0"
-            :max="100"
-            :step="1"
+        <UPopover>
+          <UButton
+            label="Settings"
+            color="neutral"
+            variant="subtle"
+            icon="i-lucide-settings-2"
           />
-          <span class="item-baseline mt-6 mb-4 flex">
-            Size
-            <span class="text-muted ps-2 pt-1 text-sm"
-              >{{ scale}}%</span
-            >
-          </span>
-          <USlider
-            v-model="scale"
-            :default-value="100"
-            :min="0"
-            :max="200"
-            :step="1"
-          />
-          <!-- <span class="mt-6 mb-4 flex">Alignment</span>
-          <USelect
-            v-model="alignment"
-            :items="
-              Object.entries(ALIGNMENT).map(([key, value]) => ({
-                label: value,
-                value: key,
-              }))
-            "
-            class="w-32 hover:cursor-pointer"
-          /> -->
-        </div>
+          <template #content>
+            <div class="settings min-w-56 p-6 pb-8">
+              <span class="item-baseline mb-4 flex">
+                Thickness
+                <span class="text-muted ps-2 text-sm">
+                  {{ thickness * 2 }}%
+                </span>
+              </span>
+              <USlider
+                v-model="thickness"
+                :default-value="50"
+                :min="0"
+                :max="100"
+                :step="1"
+              />
+              <span class="item-baseline mt-6 mb-4 flex">
+                Size
+                <span class="text-muted ps-2 pt-1 text-sm">{{ scale }}%</span>
+              </span>
+              <USlider
+                v-model="scale"
+                :default-value="100"
+                :min="0"
+                :max="200"
+                :step="1"
+              />
+              <!-- <span class="mt-6 mb-4 flex">Alignment</span>
+              <USelect
+                v-model="alignment"
+                :items="
+                  Object.entries(ALIGNMENT).map(([key, value]) => ({
+                    label: value,
+                    value: key,
+                  }))
+                "
+                class="w-32 hover:cursor-pointer"
+              /> -->
+            </div>
+          </template>
+        </UPopover>
       </div>
       <div
-        class="main-container relative z-0 flex h-full w-full flex-1 flex-nowrap items-center justify-center pt-22"
+        ref="mainContainer"
+        class="main-container relative z-0 flex h-full w-full flex-1 flex-nowrap items-center justify-center pt-18"
         :style="{ transform: `scale(${scale / 100})` }"
       >
         <div
-          class="inner-container absolute flex h-117.5 w-full items-center gap-4"
+          class="inner-container flex w-full max-w-full items-center justify-center gap-4"
+          :style="{ opacity: isReady ? 1 : 0 }"
         >
           <div
             class="left-side relative flex h-full w-full items-center justify-center"
@@ -172,7 +199,6 @@ const globalScaleFactor = computed(() => {
               :style="{
                 transform: `scale(${(scale / 100) * globalScaleFactor})`,
                 transformOrigin: 'center bottom',
-                transition: 'transform 0.3s ease',
               }"
               class="relative flex items-center justify-center"
             >
@@ -221,7 +247,6 @@ const globalScaleFactor = computed(() => {
               :style="{
                 transform: `scale(${(scale / 100) * globalScaleFactor})`,
                 transformOrigin: 'center bottom',
-                transition: 'transform 0.3s ease',
               }"
               class="relative flex items-end justify-center"
             >

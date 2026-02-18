@@ -58,7 +58,7 @@ const specs: SpecItem[] = [
 <template>
   <section>
     <div
-      class="relative mx-auto max-h-[calc(100vh-var(--ui-header-height)-88px)] w-fit max-w-full overflow-x-auto overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-700"
+      class="relative mx-auto max-h-[calc(100vh-var(--ui-header-height)-72px)] w-fit max-w-full overflow-x-auto overflow-y-auto rounded-lg border border-zinc-200 dark:border-zinc-700"
     >
       <table class="min-max text-left text-sm">
         <thead class="relative z-20">
