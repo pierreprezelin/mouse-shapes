@@ -3,7 +3,7 @@ const toaster = { duration: 3000 }
 
 const title = "MouseShapes";
 const description =
-  "A reverse-engineering of eloshapes.com for fun and to get up to date with Nuxt v4.";
+  "A reverse-engineering of eloshapes.com for fun and to get up to date with Vue 3.";
 
 useHead({
   meta: [{ name: "viewport", content: "width=device-width, initial-scale=1" }],
