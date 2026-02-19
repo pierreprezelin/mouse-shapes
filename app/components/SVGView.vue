@@ -91,7 +91,9 @@ const globalScaleFactor = computed(() => {
         class="relative z-2 flex h-full max-h-[50%] w-full flex-1 shrink-0 flex-col items-center justify-between gap-4 backdrop-blur-sm lg:max-h-full lg:max-w-92 lg:pt-18 lg:pb-0"
       >
         <div class="hidden lg:block"></div>
-        <ul class="group max-h flex w-full flex-col gap-px overflow-y-auto">
+        <ul
+          class="group max-h flex w-full flex-col gap-px overflow-y-auto lg:mt-8"
+        >
           <li
             v-for="(model, index) in models"
             :key="model.id"
