@@ -41,7 +41,10 @@ const selectedModels = computed(() => {
   return models.value
     .filter((m: Model) => urlSlugs.value.includes(m.slug as string))
     .sort((a: Model, b: Model) => {
-      return urlSlugs.value.indexOf(a.slug as string) - urlSlugs.value.indexOf(b.slug as string);
+      return (
+        urlSlugs.value.indexOf(a.slug as string) -
+        urlSlugs.value.indexOf(b.slug as string)
+      );
     });
 });
 
